@@ -4,13 +4,12 @@ import React from "react";
 import { FaMicrophoneAlt } from "react-icons/fa";
 import ProductCard from "./ProductCard";
 
-
 type Props = {
   image: any;
   title: string;
   price: string;
   location: string;
-  isSellerActive: boolean
+  isSellerActive: boolean;
 };
 
 const Mainbody = () => {
@@ -20,39 +19,39 @@ const Mainbody = () => {
       title: "Macbook M2 Chip",
       price: "$4,000 - 0.002 ETH",
       location: "Port Harcourt, Rivers state",
-      isSellerActive: true
+      isSellerActive: true,
     },
     {
       image: product,
       title: "Macbook M2 Chip",
       price: "$4,000 - 0.002 ETH",
       location: "Port Harcourt, Rivers state",
-      isSellerActive: false
+      isSellerActive: false,
     },
     {
       image: product,
       title: "Macbook M2 Chip",
       price: "$4,000 - 0.002 ETH",
       location: "Port Harcourt, Rivers state",
-      isSellerActive: true
+      isSellerActive: true,
     },
     {
       image: product,
       title: "Macbook M2 Chip",
       price: "$4,000 - 0.002 ETH",
       location: "Port Harcourt, Rivers state",
-      isSellerActive: true
+      isSellerActive: true,
     },
     {
       image: product,
       title: "Macbook M2 Chip",
       price: "$4,000 - 0.002 ETH",
       location: "Port Harcourt, Rivers state",
-      isSellerActive: false
+      isSellerActive: false,
     },
-  ]
+  ];
   return (
-    <div className="flex-1 w-full h-screen mx-9 flex flex-col items-start mt-9 overflow-y-scroll scrollbar scrollbar-track-transparent scrollbar-thumb-Foundation">
+    <div className="flex-1 w-fu w-screen h-screen mx-9 pb-[30px] flex flex-col items-start mt-9 overflow-y-scroll scrollbar-hide">
       <div className="flex items-center">
         <button className="border border-green px-5 py-2.5 rounded-[48px] flex items-center space-x-3">
           <Image src={profile} alt="profile" />
@@ -64,11 +63,10 @@ const Mainbody = () => {
       </div>
 
       {/** product */}
-      <div className="flex flex-wrap gap-9 items-center">
+      <div className="flex flex-wrap gap-12 pb-24 w-full items-center">
         {products.map((item, i) => (
-           <ProductCard key={i} {...item} />
+          <ProductCard key={i} {...item} />
         ))}
-       
       </div>
     </div>
   );

@@ -38,14 +38,20 @@ const ProductCard = ({
       <div className="flex border-b-2 border-Foundation pb-3 flex-col mt-4 items-start w-full text-start">
         <span>{title}</span>
         <h3>{price}</h3>
-        <div className="flex items-center text-start">
-          <BsDot color="green" size={45} />
-          {location}
+        <div className="flex items-start text-start">
+          <div>
+            <BsDot color="green" size={45} />
+          </div>
+          <span>{location}</span>
         </div>
       </div>
       <div className="flex items-center justify-center mt-6 space-x-6 w-full">
-        <button className="border-2 border-green px-8 py-2.5 rounded-[48px]">Buy</button>
-        <button className="bg-green px-4 py-2.5 rounded-[48px]">Add to Cart</button>
+        <button className="border-2 border-green px-8 py-2.5 rounded-[48px]">
+          Buy
+        </button>
+        <button className="bg-green px-4 py-2.5 rounded-[48px]">
+          Add to Cart
+        </button>
       </div>
     </div>
   );
