@@ -33,7 +33,7 @@ const router = useRouter()
         {!address && (
           <Button title="Connect wallet" handleClick={() => setAddress(true)}  />
         )}
-        {address && <Button title="Explore marketplace" handleClick={() => router.push("/dashboard/home")} />}
+        {address && <Button title="Explore marketplace" handleClick={() => router.push("/dashboard/feed")} />}
       </div>
     </div>
   );

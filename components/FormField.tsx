@@ -31,9 +31,9 @@ const FormField = ({
         <select
           className={`${
             isHidden
-              ? "border-none border "
-              : " border border-[#6783A0]  appearance-none relative "
-          } min-w-full block placeholder:text-[#7B93AF] outline-none  text-[#fff] bg-transparent px-4 py-2.5 rounded-[40px]`}
+              ? "border-none border text-Foundation "
+              : " border border-[#6783A0] placeholder:text-[#7B93AF]   appearance-none relative "
+          } min-w-full block outline-none  text-Foundation bg-transparent px-4 py-2.5 rounded-[40px]`}
         >
           {item?.map((cate, i) => (
             <option

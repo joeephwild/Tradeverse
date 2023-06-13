@@ -7,3 +7,4 @@ export { default as Email } from "./onboarding/Steps/Email";
 export { default as Navbar } from "./Navbar";
 export { default as Mainbody } from "./Mainbody";
 export { default as Sidebar } from "./Sidebar";
+export { default as ProductCard } from "./ProductCard";
