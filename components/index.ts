@@ -8,3 +8,6 @@ export { default as Navbar } from "./Navbar";
 export { default as Mainbody } from "./Mainbody";
 export { default as Sidebar } from "./Sidebar";
 export { default as ProductCard } from "./ProductCard";
+export { default as CategoryCard } from "./CategoryCard";
+export { default as ProductDetails } from "./ProductDetails";
+export { default as MainNav } from "./MainNav";

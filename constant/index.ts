@@ -11,6 +11,7 @@ import { FaGamepad } from "react-icons/fa";
 import { AiTwotoneCar } from "react-icons/ai";
 import { RiBearSmileFill } from "react-icons/ri";
 import { GiRolledCloth } from "react-icons/gi";
+import { product } from "@/assets";
 
 const category = [
   {
@@ -138,4 +139,50 @@ const Categories = [
   },
 ];
 
-export { category, Tab, Filter, Price, Categories };
+type Props = {
+  image: any;
+  title: string;
+  price: string;
+  location: string;
+  isSellerActive: boolean;
+};
+
+const products: Props[] = [
+  {
+    image: product,
+    title: "Windows Laptop M2 Chip",
+    price: "$4,000 - 0.002 ETH",
+    location: "Port Harcourt, Rivers state",
+    isSellerActive: true,
+  },
+  {
+    image: product,
+    title: "Macbook M2 Chip",
+    price: "$4,000 - 0.002 ETH",
+    location: "Port Harcourt, Rivers state",
+    isSellerActive: false,
+  },
+  {
+    image: product,
+    title: " M2 Chip",
+    price: "$4,000 - 0.002 ETH",
+    location: "Port Harcourt, Rivers state",
+    isSellerActive: true,
+  },
+  {
+    image: product,
+    title: "Macbook M2",
+    price: "$4,000 - 0.002 ETH",
+    location: "Port Harcourt, Rivers state",
+    isSellerActive: true,
+  },
+  {
+    image: product,
+    title: " Chip",
+    price: "$4,000 - 0.002 ETH",
+    location: "Port Harcourt, Rivers state",
+    isSellerActive: false,
+  },
+];
+
+export { category, Tab, Filter, Price, Categories, products };

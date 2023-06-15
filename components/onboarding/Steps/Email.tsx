@@ -7,7 +7,7 @@ const Email = () => {
       <FormField title="Enter your Email address *" type="text" isInput />
       <FormField title="Enter password *" type="text" isInput />
 
-      <FormField title="Confirm password *" type="text" isInput />
+      <FormField title="Confirm password *" type="password" isInput />
     </>
   );
 };

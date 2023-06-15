@@ -26,6 +26,9 @@ module.exports = {
       },
       fontFamily: {
         "Roboto-Regular": "Roboto-Regular"
+      },
+      backgroundImage: {
+        "hero-pattern": "url('../assets/bgimg.png')",
       }
     },
   },
