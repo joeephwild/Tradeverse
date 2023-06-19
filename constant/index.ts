@@ -185,4 +185,37 @@ const products: Props[] = [
   },
 ];
 
-export { category, Tab, Filter, Price, Categories, products };
+type SellingPointType = {
+  title: string
+  description: string
+}
+
+const sellingPoint: SellingPointType[] = [
+  {
+    title: "Direct and Authentic Interactions",
+    description:
+      "Experience a new level of buyer-seller connection with our live sessions. Sellers can showcase their products in real-time, allowing buyers to engage directly, ask questions, and receive instant feedback.",
+  },
+  {
+    title: "Curated Product Galleries",
+    description:
+      "EExplore beautifully curated galleries created by our diverse community of sellers. Discover unique and innovative products that are carefully selected to cater to your needs and preferences.",
+  },
+  {
+    title: "Global Reach, Local Charm",
+    description:
+      "Connect with sellers and buyers from around the world while still supporting local businesses. Our marketplace enables you to access a global network of products while fostering a sense of community and supporting independent sellers.",
+  },
+  {
+    title: "Convenience and Seamless Experience",
+    description:
+      "Enjoy a hassle-free shopping experience with our intuitive interface and streamlined processes. From browsing products to secure transactions, we prioritize convenience and aim to make every step effortless.",
+  },
+  {
+    title: "Enhanced Security",
+    description:
+      "Trust and peace of mind are paramount in our decentralized marketplace. Built on blockchain technology, we ensure secure transactions and protect your personal information. Our platform provides transparency, immutability, and data integrity.",
+  },
+];
+
+export { category, Tab, Filter, Price, Categories, products, sellingPoint };

@@ -24,7 +24,7 @@ const ProductDetails = ({
     return <div>Loading...</div>; // or any other fallback UI
   }
   return (
-    <div className="flex-1 w-screen overflow-y-scroll h-screen m-9">
+    <div className="flex-1 w-screen h-screen m-9">
       <div>back</div>
       <div className="flex flex-wrap gap-12">
         <div className="">

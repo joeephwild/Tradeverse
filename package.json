@@ -11,6 +11,7 @@
   "dependencies": {
     "@dataverse/runtime-connector": "1.0.59",
     "@ensdomains/ensjs": "^3.0.0-alpha.64",
+    "@huddle01/react": "^0.0.11",
     "@livepeer/react": "^2.5.4",
     "@particle-network/auth": "^0.13.5",
     "@particle-network/common": "^0.13.5",
@@ -20,6 +21,7 @@
     "@types/react": "18.2.11",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "buffer": "^6.0.3",
     "chalk": "^4.1.2",
     "convert-yaml": "^2.0.5",

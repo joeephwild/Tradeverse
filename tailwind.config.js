@@ -28,7 +28,9 @@ module.exports = {
         "Roboto-Regular": "Roboto-Regular"
       },
       backgroundImage: {
-        "hero-pattern": "url('../assets/bgimg.png')",
+        "hero-pattern": "url('../assets/bgimg.jpg')",
+        "hero-pattern2": "url('../assets/bgimg2.png')",
+        "hero-pattern3": "url('../assets/bgimg3.png')",
       }
     },
   },

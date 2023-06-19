@@ -11,3 +11,5 @@ export { default as ProductCard } from "./ProductCard";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as ProductDetails } from "./ProductDetails";
 export { default as MainNav } from "./MainNav";
+export { default as MissionStatement } from "./MissionStatement";
+export { default as SellingPoint } from "./SellingPoint";

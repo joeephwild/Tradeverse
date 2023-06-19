@@ -8,8 +8,9 @@ import { useTradeContext } from "@/context";
 import { useRouter } from "next/router";
 
 const Connect = () => {
-    //const {address} = useTradeContext()
-const [address, setAddress] = useState(false)
+  const {address, connectWallet} = useTradeContext()
+//const [address, setAddress] = useState(false)
+console.log(address)
 const router = useRouter()
 
   return (
@@ -31,7 +32,7 @@ const router = useRouter()
             : "Connect Your Wallet for Seamless Transactions and Enhanced Security"}
         </p>
         {!address && (
-          <Button title="Connect wallet" handleClick={() => setAddress(true)}  />
+          <Button title="Connect wallet" handleClick={connectWallet}  />
         )}
         {address && <Button title="Explore marketplace" handleClick={() => router.push("/dashboard/feed")} />}
       </div>
