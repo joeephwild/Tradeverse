@@ -8,12 +8,14 @@ interface TradeVerseNode {
 interface TradeVerseContextType {
   address: string;
   setAddress: React.Dispatch<React.SetStateAction<string>>;
+  runtimeConnector: RuntimeConnector | undefined;
 }
 
 const TradeVerse = createContext<TradeVerseContextType | null>(null);
 
 export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const [address, setAddress] = useState("");
+  const [runtimeConnector, setRuntimeConnector] = useState<RuntimeConnector>();
 
   useEffect(() => {
     const connectWallet = async () => {
@@ -27,11 +29,15 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
         console.log(error);
       }
     };
+    const runtimeConnector = new RuntimeConnector(Extension);
+    setRuntimeConnector(runtimeConnector);
+    console.log("init...", runtimeConnector);
   }, []);
 
   const contextValue: TradeVerseContextType = {
     address,
     setAddress,
+    runtimeConnector,
   };
 
   return (
