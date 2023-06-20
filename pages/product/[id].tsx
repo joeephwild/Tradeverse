@@ -3,7 +3,7 @@ import { products } from "@/constant";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
- type Props = {
+type Props = {
   image: any;
   title: string;
   price: string;
@@ -15,7 +15,7 @@ const Details = () => {
   const router = useRouter();
   const { id } = router.query;
   const [product, setProduct] = useState<Props | undefined>(undefined);
-  console.log(product)
+  console.log(product);
 
   useEffect(() => {
     const getProduct = () => {
@@ -35,7 +35,7 @@ const Details = () => {
       <div className="flex h-screen overflow-hidden w-screen">
         <Sidebar />
         <div className="overflow-y-auto overflow-hidden">
-        <ProductDetails {...product} />
+          <ProductDetails item={product} />
         </div>
       </div>
     </>

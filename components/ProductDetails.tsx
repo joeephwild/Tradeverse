@@ -6,33 +6,31 @@ import { BsDot } from "react-icons/bs";
 import { FaChevronRight } from "react-icons/fa";
 import Button from "./Button";
 import { BsChatTextFill, BsChevronDown, BsChevronRight } from "react-icons/bs";
+import { useTradeContext } from "@/context";
+import Carousel from "./Carousel";
 
 type Props = {
-  image?: any;
-  title?: string;
-  price?: string;
-  location?: string;
-  isSellerActive?: boolean;
-  description?: string;
+  image: any;
+  title: string;
+  price: string;
+  location: string;
+  isSellerActive: boolean;
+  description: string;
+  id: number
+  quantity: number
 };
 
+interface Type {
+  item: Props
+}
+
 const ProductDetails = ({
-  image,
-  isSellerActive,
-  location,
-  price,
-  title,
-  description,
-}: Props) => {
-  console.log(isSellerActive);
+item
+}: Type) => {
   const [active, setActive] = useState({
     isActive: false,
     activeRoute: ""
   });
-  if (!image || !title || !price || !location || isSellerActive === undefined) {
-    // Handle the case where product data is undefined
-    return <div>Loading...</div>; // or any other fallback UI
-  }
 
   function formatEthValue(ethValue: any, decimalPlaces: number) {
     const formattedValue = parseFloat(ethValue).toFixed(decimalPlaces);
@@ -45,32 +43,37 @@ const ProductDetails = ({
     return formatEthValue(ethereumAmount, 4);
   }
 
+  const { handleAddToCart, handleUpdateQuantity } = useTradeContext()
+
+
   const info = [
     {
       title: "Product description",
-      info: description,
+      info: item?.description,
       active: "product",
     },
     {
       title: "Seller information",
-      info: description,
+      info: item?.description,
       active: "seller",
     },
   ];
+  const images = item?.image
+ 
   return (
     <div className="flex-1 w-screen my-12 min-h-screen m-9">
       <div>back</div>
       <div className="flex flex-wrap gap-12 my-16 pb-12">
-        <div className="">
-          <Image
-            src={image}
-            alt={title}
-            className="w-[543px] h-[543px] object-cover"
-          />
+        <div className="max-w-[643px]">
+        <Carousel indicators={images} >
+          {images?.map((s: any) => (
+            <Image src={s} alt={`${s.title}`} key={s} className="min-w-[643px] max-h-[643px] object-cover" />
+          ))}
+        </Carousel>
         </div>
 
         <div className="border-2  relative border-Foundation px-4 py-2.5 h-[790px] w-[640px]">
-          {isSellerActive && (
+          {item?.isSellerActive && (
             <button className="absolute top-0 bg-[#F90000] right-0 text-center flex items-center space-x-6 px-5 py-2.5">
               <span>Seller is Live</span>
               <FaChevronRight />
@@ -78,11 +81,11 @@ const ProductDetails = ({
           )}
           <div className="flex flex-col mt-8 mx-9 items-start">
             <div className="border-b-2 pb-6 flex flex-col items-start w-full border-Foundation">
-              <span className="text-[18px] font-normal">{title}</span>
-              <span className="text-[24px] font-bold">{price}</span>
+              <span className="text-[18px] font-normal">{item?.title}</span>
+              <span className="text-[24px] font-bold">{item?.price}</span>
               <div className="flex items-center text-center space-x-">
                 <BsDot className="text-green text-xl" />
-                <span className="text-[14px] font-medium">{location}</span>
+                <span className="text-[14px] font-medium">{item?.location}</span>
               </div>
             </div>
 
@@ -139,15 +142,15 @@ const ProductDetails = ({
               <div className="flex  items-center justify-around w-full mt-6 space-x-4">
                 <span className="text-[18px] font-bold">Quantity:</span>
                 <div className="border-4 text-[16px] font-bold border-Bar rounded-[8px] w-[123px] flex items-center h-[48px]">
-                  <span className="border-r-4 px-4 py-2.5 border-Bar text-Foundation">
+                  <span onClick={() => handleUpdateQuantity(item.id, -1)}  className="border-r-4 px-4 py-2.5 border-Bar text-Foundation">
                     -
                   </span>
-                  <span className="text-[#fff] px-4 py-2.5">0</span>
-                  <span className="border-l-4 border-Bar text-Foundation px-4 py-2.5">
+                  <span className="text-[#fff] px-4 py-2.5">{item?.quantity}</span>
+                  <span onClick={() => handleUpdateQuantity(item.id, 1)} className="border-l-4 border-Bar text-Foundation px-4 py-2.5">
                     +
                   </span>
                 </div>
-                <button className="border-2 border-green px-[12px] py-[16px] text-[18px] leading-[24px] font-bold rounded-[40px]">
+                <button onClick={() => handleAddToCart(item)} className="border-2 border-green px-[12px] py-[16px] text-[18px] leading-[24px] font-bold rounded-[40px]">
                   Add to Cart
                 </button>
               </div>

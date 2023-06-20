@@ -11,7 +11,7 @@ import { FaGamepad } from "react-icons/fa";
 import { AiTwotoneCar } from "react-icons/ai";
 import { RiBearSmileFill } from "react-icons/ri";
 import { GiRolledCloth } from "react-icons/gi";
-import { product } from "@/assets";
+import { product, product2, product3, product4, product5 } from "@/assets";
 
 const category = [
   {
@@ -140,69 +140,89 @@ const Categories = [
 ];
 
 type Props = {
-  image: any;
+  image: any[];
   title: string;
   price: string;
   location: string;
   isSellerActive: boolean;
-  description: string
+  description: string;
+  id: number;
+  quantity: number;
 };
 
 const products: Props[] = [
   {
-    image: product,
+    image: [product, product, product, product, product],
     title: "Windows Laptop M2 Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    id: 1,
+    quantity: 0,
   },
   {
-    image: product,
+    image: [product, product, product, product, product],
     title: "Macbook M2 Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: false,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    id: 2,
+    quantity: 0,
   },
   {
-    image: product,
+    image: [product2, product, product3, product4, product5],
     title: "M2 Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    id: 3,
+    quantity: 0,
   },
   {
-    image: product,
+    image: [product, product, product, product, product],
     title: "Macbook M2",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: true,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    id: 4,
+    quantity: 0,
   },
   {
-    image: product,
+    image: [product, product, product, product, product],
     title: "Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: false,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    id: 5,
+    quantity: 0,
   },
   {
-    image: product,
+    image: [product, product, product, product, product],
     title: "Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: false,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+    id: 6,
+    quantity: 0,
   },
 ];
 
 type SellingPointType = {
-  title: string
-  description: string
-}
+  title: string;
+  description: string;
+};
 
 const sellingPoint: SellingPointType[] = [
   {

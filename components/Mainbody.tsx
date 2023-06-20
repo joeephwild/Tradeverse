@@ -23,7 +23,7 @@ const Mainbody = () => {
       {/** product */}
       <div className="border-b-2 border-Foundation flex !flex-wrap items-start justify-start gap-12 pb-24 w-ful">
         {products.map((item, i) => (
-          <ProductCard key={i} {...item} />
+          <ProductCard key={i} item={item} />
         ))}
       </div>
 

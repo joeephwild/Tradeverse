@@ -16,3 +16,4 @@ export { default as SellingPoint } from "./SellingPoint";
 export { default as Feature } from "./Feature";
 export { default as Contact } from "./Contact";
 export { default as HowItWorks } from "./HowItWorks";
+export { default as Carousel } from "./Carousel";

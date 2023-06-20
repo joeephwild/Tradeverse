@@ -6,7 +6,15 @@ import {
 } from "@dataverse/runtime-connector";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { ADDRCONFIG } from "dns";
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+} from '../redux/cartSlice';
+import { RootState } from '../redux/store';
+import { CartItem } from '../types';
 
 interface TradeVerseNode {
   children: React.ReactNode;
@@ -15,12 +23,37 @@ interface TradeVerseNode {
 interface TradeVerseContextType {
   address: String | undefined;
   setAddress: React.Dispatch<React.SetStateAction<String | undefined>>;
+  handleAddToCart: (item: any) => void
+  handleUpdateQuantity: (itemId: number, quantity: number) => void
 }
 
 const TradeVerse = createContext<TradeVerseContextType | null>(null);
 
 export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const [address, setAddress] = useState<String | undefined>("");
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
+ console.log(cartItems)
+  const handleAddToCart = (item: any) => {
+    dispatch(addToCart(item));
+   
+  }
+
+  const handleRemoveFromCart = (itemId: number) => {
+    dispatch(removeFromCart(itemId));
+  };
+  const handleUpdateQuantity = (itemId: number, change: number) => {
+    const item = cartItems.find((item) => item.id === itemId);
+    if (item) {
+      const newQuantity = item.quantity + change;
+      dispatch(updateQuantity({ itemId, quantity: newQuantity }));
+    }
+    console.log(item)
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
   const getRoomId = async () => {
     try {
@@ -48,6 +81,8 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const contextValue: TradeVerseContextType = {
     address,
     setAddress,
+    handleAddToCart,
+    handleUpdateQuantity
   };
 
   return (

@@ -4,31 +4,33 @@ import React from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 import Link from "next/link";
+import { useTradeContext } from "@/context";
 
 type Props = {
-  image: any;
+  image: any[];
   title: string;
   price: string;
   location: string;
   isSellerActive: boolean;
 };
 
-const ProductCard = ({
-  image,
-  location,
-  price,
-  title,
-  isSellerActive,
-}: Props) => {
+interface Type {
+  item: Props;
+}
+
+const ProductCard = ({ item }: Type) => {
+  const { handleAddToCart } = useTradeContext();
+  const main = item.image[0]
   return (
-    <Link href={`/product/${title}`} className="border-2 cursor-pointer border-Gray/900 mt-9 px-3 py-2.5 max-w-[308px]">
+    <div className="border-2 cursor-pointer border-Gray/900 mt-9 px-3 py-2.5 max-w-[308px]">
       <div className="relative">
+        
         <Image
-          src={image}
+          src={main}
           alt="product"
           className="max-w-[278px] max-h-[278px] object-cover rounded-[4px]"
         />
-        {isSellerActive && (
+        {item.isSellerActive && (
           <button className="absolute top-0 bg-[#F90000] right-0 text-center flex items-center space-x-6 px-5 py-2.5">
             <span>Seller is Live</span>
             <FaChevronRight />
@@ -37,22 +39,27 @@ const ProductCard = ({
       </div>
 
       <div className="flex border-b-2 border-Foundation pb-3 flex-col mt-4 items-start w-full text-start">
-        <span>{title}</span>
-        <h3>{price}</h3>
+        <span>{item.title}</span>
+        <h3>{item.price}</h3>
         <div className="flex items-center text-center space-x-1">
           <BsDot className="text-green text-xl" />
-          <span className="text-[14px] font-medium">{location}</span>
+          <span className="text-[14px] font-medium">{item.location}</span>
         </div>
       </div>
       <div className="flex items-center justify-center mt-6 space-x-6 w-full">
-        <button className="border-2 border-green text-[18px] font-bold px-8 py-2.5 rounded-[48px]">
-          Buy
-        </button>
-        <button className="bg-green text-[18px] font-bold px-4 py-2.5 rounded-[48px]">
+        <Link href={`/product/${item.title}`}>
+          <button className="border-2 border-green text-[18px] font-bold px-8 py-2.5 rounded-[48px]">
+            Buy
+          </button>
+        </Link>
+        <button
+          onClick={() => handleAddToCart(item)}
+          className="bg-green text-[18px] font-bold px-4 py-2.5 rounded-[48px]"
+        >
           Add to Cart
         </button>
       </div>
-    </Link>
+    </div>
   );
 };
 

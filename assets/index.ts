@@ -7,6 +7,10 @@ import how from './Group 32.png'
 import support from './Vector.png'
 import icon from './carbon_information.png'
 import message from './message.png'
+import product2 from './product2.jpg'
+import product3 from './product3.jpg'
+import product4 from './product4.jpg'
+import product5 from './product5.jpg'
 
 export {
     logo,
@@ -17,5 +21,9 @@ export {
     how,
     support,
     icon,
-    message
+    message,
+    product2,
+    product3,
+    product4,
+    product5
 }
