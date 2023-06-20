@@ -15,34 +15,35 @@ interface TradeVerseNode {
 interface TradeVerseContextType {
   address: string;
   setAddress: React.Dispatch<React.SetStateAction<string>>;
-  connectWallet: () => Promise<void>;
+  runtimeConnector: RuntimeConnector | undefined;
 }
 
 const TradeVerse = createContext<TradeVerseContextType | null>(null);
 
 export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const [address, setAddress] = useState("");
-  const [meetingLink, setMeetingLink] = useState("");
-  // console.log(meetingLink);
-  const router = useRouter();
+  const [runtimeConnector, setRuntimeConnector] = useState<RuntimeConnector>();
 
-  useEffect(() => {}, []);
-  const connectWallet = async () => {
-    try {
-      if (typeof window !== "undefined") {
-        const runtimeConnector = new RuntimeConnector(Extension);
-        // Perform any initialization or side effects here
-        const wallet = runtimeConnector.connectWallet(WALLET.METAMASK);
-        await runtimeConnector.createCapability({
-          app: "TradeVerse",
-          wallet: WALLET.METAMASK,
-        });
-        setAddress((await wallet).address);
+  useEffect(() => {
+    const connectWallet = async () => {
+      try {
+        if (typeof window !== "undefined") {
+          const runtimeConnector = new RuntimeConnector(Extension);
+          const wallet = await runtimeConnector.connectWallet(WALLET.METAMASK);
+          await runtimeConnector.createCapability({
+            app: "TradeVerse",
+            wallet: WALLET.METAMASK,
+          });
+          setAddress(wallet.address);
+          setRuntimeConnector(runtimeConnector);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    };
+
+    connectWallet();
+  }, []);
 
   const getRoomId = async () => {
     try {
@@ -59,7 +60,6 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
           },
         }
       );
-      setMeetingLink(data.data.meetingLink);
       console.log(data);
       return data.data.meetingLink;
     } catch (error) {
@@ -71,7 +71,7 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const contextValue: TradeVerseContextType = {
     address,
     setAddress,
-    connectWallet
+    runtimeConnector,
   };
 
   return (
