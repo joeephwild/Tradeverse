@@ -1,9 +1,25 @@
 import { logo, profile } from '@/assets'
+import { useTradeContext } from '@/context'
+import { Extension, RuntimeConnector, WALLET } from '@dataverse/runtime-connector'
 import Image from 'next/image'
 import React from 'react'
 import { FaSearch, FaChevronDown, FaBars } from 'react-icons/fa'
 
 const Navbar = () => {
+  const { address, setAddress } = useTradeContext()
+
+  
+  const connect = async () => {
+    if (typeof window != "undefined") {
+      const runtimeConnector = new RuntimeConnector(Extension);
+      const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
+      await runtimeConnector?.createCapability({
+        app: "TradeVerse",
+        wallet: WALLET.METAMASK,
+      });
+      setAddress(wallet?.address);
+    }
+  };
   return (
     <nav className='border-b-4 border-[#fff] bg-Bar flex w-full items-center justify-between py-3.5 px-5'>
         <div className='flex items-center space-x-4'>
@@ -15,9 +31,9 @@ const Navbar = () => {
             </div>
         </div>
 
-        <button className='border-green border px-4 py-2.5 text-green rounded-[48px] hidden lg:flex items-center space-x-4'>
+        <button onClick={connect} className='border-green border px-4 py-2.5 text-green rounded-[48px] hidden lg:flex items-center space-x-4'>
             <Image src={profile} alt="profile" />
-            <span>0x...23set534ft</span>
+            <span>{address?.slice(0,6)}...{address?.slice(37, 47)}</span>
             <FaChevronDown />
         </button>
 

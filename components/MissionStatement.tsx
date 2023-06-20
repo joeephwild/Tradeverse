@@ -14,9 +14,9 @@ const MissionStatement = () => {
     },
   ];
   return (
-    <div className="w-full flex flex-wrap items-start pl-[80px] gap-[20px] border-b-4 border-[#fff] pb-24 space-x-[40px] ">
+    <div className="w-full flex flex-wrap items-start lg:pl-[80px]  border-b-4 border-[#fff] pb-24 space-x-[40px] ">
       {statement.map((item, i) => (
-        <div key={i} className="flex flex-col items-start space-y-[16px]">
+        <div key={i} className="flex flex-col items-start mt-9 justify-center space-y-[16px]">
           <h2 className="text-[40px] font-bold leading-[48px]">{item.title}</h2>
           <p className="text-[16px] leading-[24px] w-[620px]  font-normal">
             {item.description}

@@ -13,37 +13,14 @@ interface TradeVerseNode {
 }
 
 interface TradeVerseContextType {
-  address: string;
-  setAddress: React.Dispatch<React.SetStateAction<string>>;
-  runtimeConnector: RuntimeConnector | undefined;
+  address: String | undefined;
+  setAddress: React.Dispatch<React.SetStateAction<String | undefined>>;
 }
 
 const TradeVerse = createContext<TradeVerseContextType | null>(null);
 
 export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
-  const [address, setAddress] = useState("");
-  const [runtimeConnector, setRuntimeConnector] = useState<RuntimeConnector>();
-
-  useEffect(() => {
-    const connectWallet = async () => {
-      try {
-        if (typeof window !== "undefined") {
-          const runtimeConnector = new RuntimeConnector(Extension);
-          const wallet = await runtimeConnector.connectWallet(WALLET.METAMASK);
-          await runtimeConnector.createCapability({
-            app: "TradeVerse",
-            wallet: WALLET.METAMASK,
-          });
-          setAddress(wallet.address);
-          setRuntimeConnector(runtimeConnector);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    connectWallet();
-  }, []);
+  const [address, setAddress] = useState<String | undefined>("");
 
   const getRoomId = async () => {
     try {
@@ -71,7 +48,6 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const contextValue: TradeVerseContextType = {
     address,
     setAddress,
-    runtimeConnector,
   };
 
   return (

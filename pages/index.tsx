@@ -1,71 +1,26 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { Button, MainNav } from "@/components";
+import {
+  Button,
+  Contact,
+  Feature,
+  HowItWorks,
+  MainNav,
+  MissionStatement,
+  SellingPoint,
+} from "@/components";
 import { useTradeContext } from "@/context";
 import { useEffect } from "react";
-import { WALLET } from "@dataverse/runtime-connector";
+import { Mode, WALLET } from "@dataverse/runtime-connector";
 import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const router = useRouter()
-  const { runtimeConnector } = useTradeContext();
-
-  useEffect(() => {
-    console.log({ runtimeConnector });
-  }, []);
-
-  const contractCall = async () => {
-    await runtimeConnector?.connectWallet(WALLET.METAMASK);
-    const res = await runtimeConnector?.contractCall({
-      contractAddress: "0xB07E79bB859ad18a8CbE6E111f4ad0Cca2FD3Da8",
-      abi: [
-        {
-          inputs: [],
-          name: "metadata",
-          outputs: [
-            {
-              components: [
-                {
-                  internalType: "address",
-                  name: "hub",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "profileId",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "pubId",
-                  type: "uint256",
-                },
-                {
-                  internalType: "address",
-                  name: "collectModule",
-                  type: "address",
-                },
-              ],
-              internalType: "struct IDataToken.Metadata",
-              name: "",
-              type: "tuple",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-      ],
-      method: "metadata",
-      params: [],
-    });
-    console.log({ res });
-  };
-
+  const router = useRouter();
   return (
     <>
-      <div className="bg-hero-pattern border-b-4 border-[#fff] object-cover bg-cover bg-top  bg-no-repeat !w-screen h-[880px] h-creen">
+      <div className="bg-hero-pattern border-b-4 border-[#fff]  object-cover bg-cover bg-top  bg-no-repeat !w-screen h-[880px] h-creen">
         <MainNav />
         <div>
           <div className="flex flex-col mt-[320px] items-start w-full pl-[80px]">
@@ -82,7 +37,18 @@ export default function Home() {
             <Button title="Get Started" isLink link="/onboarding/onboard" />
           </div>
         </div>
-        </div>
-        </>
-  )
+      </div>
+      <div className="bg-hero-pattern2 bg-black bg-cover py-16 bg-center">
+        <MissionStatement />
+        <SellingPoint />
+      </div>
+      <div className="mt-[80px] flex flex-col item-center w-full py-[30px]">
+        <Feature />
+      </div>
+      <div className={`bg-hero-pattern2 bg-black bg-cover py-16 bg-center ${`bg-hero-pattern3 bg-cover bg-center`}`}>
+        <HowItWorks />
+        <Contact />
+      </div>
+    </>
+  );
 }

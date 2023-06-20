@@ -5,13 +5,18 @@ import { category } from "@/constant";
 import Account from "./Steps/Account";
 import Email from "./Steps/Email";
 import { useRouter } from "next/router";
+import Link from "next/link";
+
+interface Props {
+  setActive: React.Dispatch<React.SetStateAction<string>>
+}
 
 //Styles
 const styles = {
   wrapper: "mt-[9%] flex flex-col space-y-9",
 };
 
-const SignUpForm = () => {
+const SignUpForm = ({ setActive}: Props) => {
   const [currentStep, setCurrentStep] = useState(0);
   const router = useRouter();
 
@@ -52,12 +57,12 @@ const SignUpForm = () => {
   };
 
   return (
-    <form>
+    <form id="signup">
       <div className={styles.wrapper}>
         {renderStepComponent()}
-        <Button handleClick={handleClick} title="Continue" />
-        <span className="text-[14px] leading-[16px] text-[#fff] text-center">
-          Already have an account? <span className="text-green">Log in</span>
+        <Button handleClick={handleClick} isFunc title="Continue" />
+        <span className="text-[14px] leading-[16px] cursor-pointer text-[#fff] text-center">
+          Already have an account? <span onClick={() => setActive("login")} className="text-green">Log in</span>
         </span>
       </div>
     </form>

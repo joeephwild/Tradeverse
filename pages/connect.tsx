@@ -1,17 +1,37 @@
+'use client'
 // Update the import to the correct path
 import Button from "@/components/Button"; // Update the import to the correct path
 import Image from "next/image";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { logo } from "@/assets";
 import { useTradeContext } from "@/context";
 import { useRouter } from "next/router";
+import {
+  Extension,
+  RuntimeConnector,
+  WALLET,
+} from "@dataverse/runtime-connector";
 
 const Connect = () => {
-  const {address, connectWallet} = useTradeContext()
-//const [address, setAddress] = useState(false)
-console.log(address)
-const router = useRouter()
+  const { address, setAddress } = useTradeContext();
+  //const [address, setAddress] = useState(false)
+  console.log(address);
+  const router = useRouter();
+
+  //const [runtimeConnector, setRuntimeConnector] = useState<RuntimeConnector>();
+
+  const connect = async () => {
+    if (typeof window != "undefined") {
+      const runtimeConnector = new RuntimeConnector(Extension);
+      const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
+      await runtimeConnector?.createCapability({
+        app: "TradeVerse",
+        wallet: WALLET.METAMASK,
+      });
+      setAddress(wallet?.address);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -32,9 +52,11 @@ const router = useRouter()
             : "Connect Your Wallet for Seamless Transactions and Enhanced Security"}
         </p>
         {!address && (
-          <Button title="Connect wallet" handleClick={connectWallet}  />
+          <Button title="Connect wallet" handleClick={connect} isFunc />
         )}
-        {address && <Button title="Explore marketplace" handleClick={() => router.push("/dashboard/feed")} />}
+        {address && (
+          <Button title="Explore marketplace" isLink link="/dashboard/feed" />
+        )}
       </div>
     </div>
   );

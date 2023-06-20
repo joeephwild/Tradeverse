@@ -2,7 +2,6 @@
 import { logo } from "@/assets";
 import { LoginForm, SignUpForm } from "@/components";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 
 const Auth = () => {
@@ -27,6 +26,7 @@ const Auth = () => {
         )}
 
         <div className="flex items-center justify-center space-x-9">
+          <a href="#login">
           <button
             onClick={() => setActive("login")}
             className={`${
@@ -37,6 +37,8 @@ const Auth = () => {
           >
             login
           </button>
+          </a>
+          <a href="#signup">
           <button
             onClick={() => setActive("signup")}
             className={`${
@@ -47,10 +49,11 @@ const Auth = () => {
           >
             signup
           </button>
+          </a>
         </div>
         <div className=" min-w-[490px]">
           {active === "login" && <LoginForm />}
-          {active === "signup" && <SignUpForm />}
+          {active === "signup" && <SignUpForm setActive={setActive} />}
         </div>
       </div>
     </div>

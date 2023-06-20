@@ -14,12 +14,12 @@ const styles = {
 const LoginForm = () => {
   const router = useRouter()
   return (
-    <form>
+    <form id="login">
       <div className={styles.wrapper}>
         <FormField title="Enter Your Phone or Email" type="email" isInput />
         <FormField title="Enter your password" type="Password" isInput />
 
-        <Button handleClick={() => router.push("/onboarding/Auth")} title="Continue" />
+        <Button handleClick={() => router.push("/onboarding/Auth")} isFunc title="Continue" />
         <span className="text-[#00B86B] text-center cursor-pointer">Forgot password</span>
       </div>
     </form>

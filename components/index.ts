@@ -13,3 +13,6 @@ export { default as ProductDetails } from "./ProductDetails";
 export { default as MainNav } from "./MainNav";
 export { default as MissionStatement } from "./MissionStatement";
 export { default as SellingPoint } from "./SellingPoint";
+export { default as Feature } from "./Feature";
+export { default as Contact } from "./Contact";
+export { default as HowItWorks } from "./HowItWorks";

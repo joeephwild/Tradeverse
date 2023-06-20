@@ -145,6 +145,7 @@ type Props = {
   price: string;
   location: string;
   isSellerActive: boolean;
+  description: string
 };
 
 const products: Props[] = [
@@ -154,6 +155,7 @@ const products: Props[] = [
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
   },
   {
     image: product,
@@ -161,13 +163,15 @@ const products: Props[] = [
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: false,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
   },
   {
     image: product,
-    title: " M2 Chip",
+    title: "M2 Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
   },
   {
     image: product,
@@ -175,13 +179,15 @@ const products: Props[] = [
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: true,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
   },
   {
     image: product,
-    title: " Chip",
+    title: "Chip",
     price: "$4,000 - 0.002 ETH",
     location: "Port Harcourt, Rivers state",
     isSellerActive: false,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
   },
 ];
 

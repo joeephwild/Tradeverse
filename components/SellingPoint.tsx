@@ -5,7 +5,7 @@ import React from "react";
 
 const SellingPoint = () => {
   return (
-    <section className="mt-[80px] items-start pl-[80px] w-full bg-hero-pattern3 object-cover bg-center">
+    <section className="mt-[80px] items-start lg:pl-[80px] w-full bg-hero-pattern3 object-cover bg-center">
       <h1 className="text-[40px] font-bold leading-[46px]">
         Unique Selling Points and Benefits
       </h1>

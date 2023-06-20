@@ -7,6 +7,7 @@ interface Props {
   isCategory?: boolean | null;
   item?: { title: string; value: string }[];
   isHidden?: boolean;
+  isTextArea?: boolean;
 }
 
 const FormField = ({
@@ -16,14 +17,22 @@ const FormField = ({
   isCategory,
   item,
   isHidden,
+  isTextArea,
 }: Props) => {
   return (
     <label className="space-y-2 flex-col flex items-start" htmlFor="">
-      <span className="text-[#00B86B] w-full text-[12px] ">{title}</span>
+      <span className="text-[#00B86B] w-full text-[16px] leading-[24px] font-normal">{title}</span>
       {isInput && (
         <input
           type={type}
           className="min-w-full border border-[#6783A0] outline-none placeholder:text-[#fff] text-[#fff] bg-transparent px-4 py-2.5 rounded-[40px]"
+        />
+      )}
+
+      {isTextArea && (
+        <textarea
+         rows={6}
+          className="min-w-full border border-[#6783A0] outline-none placeholder:text-[#fff] text-[#fff] bg-transparent px-4 py-2.5 rounded-[8px]"
         />
       )}
 
