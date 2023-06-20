@@ -1,4 +1,4 @@
-'use client'
+"use client";
 // Update the import to the correct path
 import Button from "@/components/Button"; // Update the import to the correct path
 import Image from "next/image";
@@ -19,9 +19,37 @@ const Connect = () => {
   console.log(address);
   const router = useRouter();
 
-  //const [runtimeConnector, setRuntimeConnector] = useState<RuntimeConnector>();
+  const createCapability = async () => {
+    if (typeof window != "undefined") {
+      const runtimeConnector = new RuntimeConnector(Extension);
+      const pkh = await runtimeConnector?.createCapability({
+        app: "PolyverseTest",
+        wallet: WALLET.METAMASK, // optional, if not connected
+      });
+      console.log(pkh);
+      return pkh;
+    }
+  };
 
   const connect = async () => {
+    try {
+      if (typeof window != "undefined") {
+        const runtimeConnector = new RuntimeConnector(Extension);
+        const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
+        await runtimeConnector?.switchNetwork(314159);
+        createCapability();
+        console.log(wallet);
+        setAddress(wallet?.address);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //const [runtimeConnector, setRuntimeConnector] = useState<RuntimeConnector>();
+
+  /**
+ *   const connect = async () => {
     if (typeof window != "undefined") {
       const runtimeConnector = new RuntimeConnector(Extension);
       const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
@@ -32,6 +60,7 @@ const Connect = () => {
       setAddress(wallet?.address);
     }
   };
+ */
 
   return (
     <div className="min-h-screen flex items-center justify-center">

@@ -30,13 +30,13 @@ const Details = () => {
   }, [id]);
 
   return (
-    <>
+    <div className="overflow-y-hidden">
       <Navbar />
       <div className="flex items-start">
         <Sidebar />
         <ProductDetails {...product} />
       </div>
-    </>
+    </div>
   );
 };
 

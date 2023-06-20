@@ -9,7 +9,7 @@ const Sidebar = () => {
   const [active, setActive] = useState("feed");
   const router = useRouter();
   return (
-    <div className="w-[20%] h-screen bg-Bar pb-12 overflow-y-scroll scrollbar hidden lg:flex flex-col items-center scrollbar-track-transparent scrollbar-thumb-Foundation">
+    <div className="w-[20%] min-h-screen bg-Bar pb-12 scrollbar hidden lg:flex flex-col items-center scrollbar-track-transparent scrollbar-thumb-Foundation">
       <div className="px-6 flex flex-col items-start py-6 space-y-9 mt-5">
         {Tab.map((item, i) => (
           <Link key={i} href={item.route}>
