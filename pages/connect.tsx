@@ -26,7 +26,7 @@ const Connect = () => {
       const runtimeConnector = new RuntimeConnector(Extension);
       const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
       await runtimeConnector?.createCapability({
-        app: "TradeVerse",
+        app: "TradeVerses",
         wallet: WALLET.METAMASK,
       });
       setAddress(wallet?.address);
