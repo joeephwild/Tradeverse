@@ -15,7 +15,7 @@ interface Props {
 //Styles
 const styles = {
   continueBtn:
-    "flex items-start justify-between text-[16px] space-x-4vw md:space-x-7 text-[#fff] bg-[#00B86B] px-9 py-3.5 rounded-[40px]",
+    "flex items-start justify-between text-[14px] space-x-4vw md:space-x-7 text-[#fff] bg-[#00B86B] px-9 py-3.5 rounded-[40px]",
 };
 
 const Button = ({
@@ -34,7 +34,7 @@ const Button = ({
           onClick={handleClick}
           className={`${!isBorder && styles.continueBtn} ${
             isBorder &&
-            "border-green border flex items-start justify-between text-[16px] space-x-4vw md:space-x-7  text-[#fff] px-9 py-3.5 rounded-[40px]"
+            "border-green border flex items-start justify-between text-[14px] space-x-4vw md:space-x-7  text-[#fff] px-9 py-3.5 rounded-[40px]"
           } min-w-[240px]`}
         >
           <span>{title}</span>
@@ -46,7 +46,7 @@ const Button = ({
           <button
             className={`${!isBorder && styles.continueBtn} ${
               isBorder &&
-              "border-green border flex items-start justify-between text-[16px] space-x-4vw md:space-x-7  text-[#fff] px-9 py-3.5 rounded-[40px]"
+              "border-green border flex items-start justify-between text-[14px] space-x-4vw md:space-x-7  text-[#fff] px-9 py-3.5 rounded-[40px]"
             } min-w-[240px]`}
           >
             <span>{title}</span>

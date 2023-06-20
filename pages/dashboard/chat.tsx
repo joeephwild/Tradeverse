@@ -5,7 +5,7 @@ const chat = () => {
   return (
     <>
       <Navbar />
-      <div className="flex items-start">
+      <div className="flex h-screen overflow-hidden w-screen">
         <Sidebar />
       </div>
     </>

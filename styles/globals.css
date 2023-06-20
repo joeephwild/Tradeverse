@@ -8,7 +8,7 @@
 }
 
 body {
-  @apply bg-[#1C2631] text-[#fff] overflow-hidden overflow-y-scroll font-Roboto-Regular;
+  @apply bg-[#1C2631] text-[#fff] overflow-hidden font-Roboto-Regular;
 }
 
 .inputbg {

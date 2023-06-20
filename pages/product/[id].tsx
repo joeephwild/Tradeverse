@@ -30,13 +30,15 @@ const Details = () => {
   }, [id]);
 
   return (
-    <div className="overflow-y-hidden">
+    <>
       <Navbar />
-      <div className="flex items-start">
+      <div className="flex h-screen overflow-hidden w-screen">
         <Sidebar />
+        <div className="overflow-y-auto overflow-hidden">
         <ProductDetails {...product} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

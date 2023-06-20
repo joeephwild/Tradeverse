@@ -1,16 +1,18 @@
-import { Mainbody, Navbar, Sidebar } from '@/components'
-import React from 'react'
+import { Mainbody, Navbar, Sidebar } from "@/components";
+import React from "react";
 
 const home = () => {
   return (
     <>
-    <Navbar />
-    <div className='flex items-start'>
+      <Navbar />
+      <div className="flex h-screen overflow-hidden w-screen">
         <Sidebar />
-        <Mainbody />
-    </div>
+        <div className="overflow-y-auto overflow-hidden">
+          <Mainbody />
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default home
+export default home;
