@@ -9,7 +9,7 @@ import { products } from "@/constant";
 const Mainbody = () => {
   
   return (
-    <div className="flex-1 w-screen h-screen mx-9 pb-[30px] flex flex-col items-start mt-9">
+    <div className="flex-1 h-screen pb-[30px] mx-9 flex flex-col items-start mt-9">
       <div className="flex border-b-2 border-Foundation w-full py-6 items-center">
         <button className="border border-green px-5 py-2.5 rounded-[48px] flex items-center space-x-3">
           <Image src={profile} alt="profile" />
@@ -21,13 +21,13 @@ const Mainbody = () => {
       </div>
 
       {/** product */}
-      <div className="border-b-2 border-Foundation flex flex-wrap gap-12 pb-24 w-full items-center">
+      <div className="border-b-2 border-Foundation flex !flex-wrap items-start justify-start gap-12 pb-24 w-ful">
         {products.map((item, i) => (
           <ProductCard key={i} {...item} />
         ))}
       </div>
 
-      <div className="border-b-2 border-Foundation flex flex-wrap gap-12 pb-24 w-full items-center">
+      <div className="border-b-2 border-Foundation flex !flex-wrap items-start justify-start gap-12 pb-24 w-ful">
         {products.map((item, i) => (
           <CategoryCard key={i} {...item} />
         ))}
