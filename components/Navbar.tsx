@@ -58,7 +58,7 @@ const Navbar = () => {
       </div>
 
       <button
-        onClick={connect}
+        onClick={() => connect()}
         className="border-green border px-4 py-2.5 text-green rounded-[48px] hidden lg:flex items-center space-x-4"
       >
         <Image src={profile} alt="profile" />

@@ -6,10 +6,23 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 const Sidebar = () => {
-  const [active, setActive] = useState("feed");
+  let currentWin = window.location.href.substring(22);
+  let currentTab: any;
+  if (currentWin === "") {
+    currentTab = "feed";
+  } else if (currentWin === "inbox") {
+    currentTab = "inbox";
+  } else if (currentWin === "cart") {
+    currentTab = "cart";
+  } else if (currentWin === "notify") {
+    currentTab = "notify";
+  }
+
+  const [active, setActive] = useState(currentTab);
+
   const router = useRouter();
   return (
-    <div className="w-[20%] min-h-screen bg-Bar pb-12 scrollbar hidden lg:flex flex-col items-center scrollbar-track-transparent scrollbar-thumb-Foundation">
+    <div className="w-[15%] min-h-screen bg-Bar pb-12 overflow-y-scroll scrollbar hidden lg:flex flex-col items-center scrollbar-track-transparent scrollbar-thumb-Foundation">
       <div className="px-6 flex flex-col items-start py-6 space-y-9 mt-5">
         {Tab.map((item, i) => (
           <Link key={i} href={item.route}>
@@ -39,8 +52,8 @@ const Sidebar = () => {
           </Link>
         ))}
         <div className="flex flex-col space-y-4 items-center">
-          <Button title="Create new listing" />
-          <Button title="Start a live call" isBorder={true} />
+          <Button title="Create new listing" isLink />
+          <Button title="Start a live call" isBorder={true} isLink />
         </div>
       </div>
 

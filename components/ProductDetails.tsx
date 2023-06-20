@@ -58,7 +58,7 @@ const ProductDetails = ({
     },
   ];
   return (
-    <div className="flex-1 w-screen overflow-y-scroll scrollbar-hide my-12 h-screen m-9">
+    <div className="flex-1 w-screen overflow-y-scrol scrollbar-hide my-12 min-h-screen m-9">
       <div>back</div>
       <div className="flex flex-wrap gap-12 my-16 pb-12">
         <div className="">
