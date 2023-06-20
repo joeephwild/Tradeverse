@@ -33,7 +33,7 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": "a7XSoEa7jnMJufnlJzZuHxF7bDjS0OcP",
+            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
           },
         }
       );
