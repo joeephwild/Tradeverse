@@ -21,13 +21,13 @@ const Mainbody = () => {
       </div>
 
       {/** product */}
-      <div className="flex border-b-2 border-Foundation flex-wrap gap-12 pb-24 w-full items-center">
+      <div className="border-b-2 border-Foundation flex flex-wrap gap-12 pb-24 w-full items-center">
         {products.map((item, i) => (
           <ProductCard key={i} {...item} />
         ))}
       </div>
 
-      <div className="flex border-b-2 border-Foundation flex-wrap gap-12 pb-24 w-full items-center">
+      <div className="border-b-2 border-Foundation flex flex-wrap gap-12 pb-24 w-full items-center">
         {products.map((item, i) => (
           <CategoryCard key={i} {...item} />
         ))}

@@ -21,7 +21,7 @@ const ProductCard = ({
   isSellerActive,
 }: Props) => {
   return (
-    <Link href={`/product/${title}`} className="border-2 cursor-pointer border-Gray/900 mt-9 px-5 py-2.5 max-w-[378px]">
+    <Link href={`/product/${title}`} className="border-2 cursor-pointer border-Gray/900 mt-9 px-3 py-2.5 max-w-[378px]">
       <div className="relative">
         <Image
           src={image}

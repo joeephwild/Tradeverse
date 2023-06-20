@@ -189,6 +189,14 @@ const products: Props[] = [
     isSellerActive: false,
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
   },
+  {
+    image: product,
+    title: "Chip",
+    price: "$4,000 - 0.002 ETH",
+    location: "Port Harcourt, Rivers state",
+    isSellerActive: false,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod ipsum quis tellus rhoncus, sed ullamcorper nunc mollis.",
+  },
 ];
 
 type SellingPointType = {
