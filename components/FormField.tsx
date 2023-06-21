@@ -12,6 +12,8 @@ interface Props {
   isHidden?: boolean;
   isTextArea?: boolean;
   isImage?: boolean;
+  value?: string;
+  handleChange?: (e: any) => void;
 }
 
 const FormField = ({
@@ -23,6 +25,8 @@ const FormField = ({
   isHidden,
   isTextArea,
   isImage,
+  value,
+  handleChange,
 }: Props) => {
   const onDrop = useCallback((acceptedFiles: any) => {
     // Do something with the files
@@ -36,7 +40,9 @@ const FormField = ({
       </span>
       {isInput && (
         <input
+          value={value}
           type={type}
+          onChange={handleChange}
           className="min-w-full border border-[#6783A0] outline-none placeholder:text-[#fff] text-[#fff] bg-Gray/900 px-4 py-2.5 rounded-[40px]"
         />
       )}
@@ -44,12 +50,15 @@ const FormField = ({
       {isTextArea && (
         <textarea
           rows={4}
+          value={value}
+          onChange={handleChange}
           className="min-w-full border border-[#6783A0] outline-none placeholder:text-[#fff] text-[#fff] bg-Gray/900 px-4 py-2.5 rounded-[8px]"
         />
       )}
 
       {isCategory && (
         <select
+          onChange={handleChange}
           className={`${
             isHidden
               ? "border-none border text-Foundation "

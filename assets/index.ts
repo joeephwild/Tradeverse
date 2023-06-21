@@ -12,6 +12,9 @@ import product3 from './product3.jpg'
 import product4 from './product4.jpg'
 import product5 from './product5.jpg'
 import camera from './camera.png'
+import video from './video.png'
+import right from './right.png'
+import calender from './calender.png'
 
 export {
     logo,
@@ -27,5 +30,8 @@ export {
     product3,
     product4,
     camera,
-    product5
+    product5,
+    calender,
+    right,
+    video
 }

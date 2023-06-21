@@ -1,3 +1,5 @@
+import { right } from "@/assets";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -50,7 +52,7 @@ const Button = ({
             } min-w-[240px]`}
           >
             <span>{title}</span>
-            <AiOutlineArrowRight size={20} />
+           <Image src={right} alt="right" />
           </button>
         </Link>
       )}

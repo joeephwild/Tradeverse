@@ -6,15 +6,17 @@ import {
 } from "@dataverse/runtime-connector";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import {
   addToCart,
   removeFromCart,
   updateQuantity,
   clearCart,
-} from '../redux/cartSlice';
-import { RootState } from '../redux/store';
-import { CartItem } from '../types';
+} from "../redux/cartSlice";
+import { RootState } from "../redux/store";
+import { CartItem } from "../types";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/firebase";
 
 interface TradeVerseNode {
   children: React.ReactNode;
@@ -23,8 +25,9 @@ interface TradeVerseNode {
 interface TradeVerseContextType {
   address: String | undefined;
   setAddress: React.Dispatch<React.SetStateAction<String | undefined>>;
-  handleAddToCart: (item: any) => void
-  handleUpdateQuantity: (itemId: number, quantity: number) => void
+  handleAddToCart: (item: any) => void;
+  handleUpdateQuantity: (itemId: number, quantity: number) => void;
+  getRoomId: () => Promise<any>;
 }
 
 const TradeVerse = createContext<TradeVerseContextType | null>(null);
@@ -33,11 +36,10 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
   const [address, setAddress] = useState<String | undefined>("");
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
- console.log(cartItems)
+  console.log(cartItems);
   const handleAddToCart = (item: any) => {
     dispatch(addToCart(item));
-   
-  }
+  };
 
   const handleRemoveFromCart = (itemId: number) => {
     dispatch(removeFromCart(itemId));
@@ -48,7 +50,7 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
       const newQuantity = item.quantity + change;
       dispatch(updateQuantity({ itemId, quantity: newQuantity }));
     }
-    console.log(item)
+    console.log(item);
   };
 
   const handleClearCart = () => {
@@ -71,18 +73,37 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
         }
       );
       console.log(data);
-      return data.data.meetingLink;
+      return data.data.roomId      ;
     } catch (error) {
       console.log(error);
       return "";
     }
   };
 
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkUser = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/auth.user
+          const uid = user.uid;
+          // ...
+        } else {
+          // User is signed out
+          router.push("/");
+        }
+      });
+    };
+  });
+
   const contextValue: TradeVerseContextType = {
     address,
     setAddress,
     handleAddToCart,
-    handleUpdateQuantity
+    handleUpdateQuantity,
+    getRoomId,
   };
 
   return (

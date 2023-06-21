@@ -41,8 +41,8 @@ const Sidebar = () => {
           </Link>
         ))}
         <div className="flex flex-col space-y-4 items-center">
-          <Button title="Create new listing" isLink link="/newListing"/>
-          <Button title="Start a live call" isBorder={true} isLink />
+          <Button title="Create new listing" isLink link="/dashboard/newListing"/>
+          <Button title="Start a live call" isBorder={true} isLink link="/dashboard/goLive" />
         </div>
       </div>
 
