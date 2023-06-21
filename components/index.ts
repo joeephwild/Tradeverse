@@ -17,3 +17,5 @@ export { default as Feature } from "./Feature";
 export { default as Contact } from "./Contact";
 export { default as HowItWorks } from "./HowItWorks";
 export { default as Carousel } from "./Carousel";
+export { default as DetailCard } from "./DetailCard";
+export { default as ProductForm } from "./ProductForm";

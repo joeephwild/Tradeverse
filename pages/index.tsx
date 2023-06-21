@@ -19,7 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const router = useRouter();
   return (
-    <>
+    <div>
       <div className="bg-hero-pattern border-b-4 border-[#fff]  object-cover bg-cover bg-top  bg-no-repeat !w-screen h-[880px] h-creen">
         <MainNav />
         <div>
@@ -49,6 +49,6 @@ export default function Home() {
         <HowItWorks />
         <Contact />
       </div>
-    </>
+    </div>
   );
 }

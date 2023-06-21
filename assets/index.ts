@@ -11,6 +11,7 @@ import product2 from './product2.jpg'
 import product3 from './product3.jpg'
 import product4 from './product4.jpg'
 import product5 from './product5.jpg'
+import camera from './camera.png'
 
 export {
     logo,
@@ -25,5 +26,6 @@ export {
     product2,
     product3,
     product4,
+    camera,
     product5
 }

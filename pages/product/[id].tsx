@@ -1,4 +1,4 @@
-import { Navbar, ProductDetails, Sidebar } from "@/components";
+import { Navbar, ProductCard, ProductDetails, Sidebar } from "@/components";
 import { products } from "@/constant";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -34,9 +34,7 @@ const Details = () => {
       <Navbar />
       <div className="flex h-screen overflow-hidden w-screen">
         <Sidebar />
-        <div className="overflow-y-auto overflow-hidden">
           <ProductDetails item={product} />
-        </div>
       </div>
     </>
   );

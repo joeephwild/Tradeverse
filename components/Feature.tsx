@@ -9,7 +9,7 @@ const Feature = () => {
       <Image
         src={videoImage}
         alt="videocall"
-        className="w-[1280p max-w-full h-auto  -[760px] lg:ml-[80px] object-cover justify-center"
+        className="min-w-[3280p] h-[760px] lg:ml-[80px] object-cover justify-center"
       />
       <div className="flex flex-col items-start text-start space-y-[16px] mt-[80px] lg:ml-[80px] ">
         <h1 className="text-[24px] leading-[28.13px] font-bold inline-bloc max-w-[517px] h-[28px]">Revolutionary Connection, Convenience, and Security</h1>
