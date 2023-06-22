@@ -34,7 +34,7 @@ const VideoCall = () => {
 
   useEffect(() => {
     // its preferable to use env vars to store projectId
-    initialize("TxG-OolMwGeCoZPzX660e65wwuU2MP83");
+    initialize("vtgktcYqWqcoqvlFqzItnfR_ALdxyhlf");
   }, []);
 
   const startVideo = () => {
