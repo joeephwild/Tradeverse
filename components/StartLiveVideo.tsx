@@ -14,6 +14,7 @@ const StartLiveVideo = () => {
   const { getRoomId } = useTradeContext();
   const [roomId, setRoomId] = useState("");
   const { initialize, isInitialized } = useHuddle01();
+  const [isLoading, setIsLoading] = useState(false)
   const { joinLobby } = useLobby();
   const router = useRouter();
   console.log(roomId);
@@ -27,8 +28,12 @@ const StartLiveVideo = () => {
   const handleClick = async () => {
     try {
       const id = await getRoomId();
+      setIsLoading(true)
       setRoomId(id);
+      if (roomId) {
+        setIsLoading(false)
         router.push(`/meet/${roomId}`);
+      }
     } catch (error) {
       console.log(error);
       // Handle the error accordingly
@@ -51,7 +56,7 @@ const StartLiveVideo = () => {
           Go live to showcase your products and <br /> communicate with your
           customers
         </p>
-        <Button title="Go Live" isFunc handleClick={handleClick} />
+        <Button title={`${isLoading ? "loading" : "Go Live"}`} isFunc handleClick={handleClick} />
       </div>
 
       <div className="flex items-center space-x-4 justify-center ">
