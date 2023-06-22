@@ -44,7 +44,7 @@ const DetailCard = ({ item }: Props) => {
   return (
     <div className="border-2  relative border-Foundation px-4 py-2.5 h-[790px] w-[640px]">
     {item?.isSellerActive && (
-      <button className="absolute top-0 bg-[#F90000] right-0 text-center flex items-center space-x-6 px-5 py-2.5">
+      <button className="absolute top-0 animate-pulse transition-all duration-500 cursor-pointer bg-[#F90000] right-0 text-center flex items-center space-x-6 px-5 py-2.5">
         <span>Seller is Live</span>
         <FaChevronRight />
       </button>

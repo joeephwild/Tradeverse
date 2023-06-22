@@ -15,6 +15,7 @@ import camera from './camera.png'
 import video from './video.png'
 import right from './right.png'
 import calender from './calender.png'
+import bgImage from './bgImage.png'
 
 export {
     logo,
@@ -33,5 +34,6 @@ export {
     product5,
     calender,
     right,
-    video
+    video,
+    bgImage
 }

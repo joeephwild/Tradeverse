@@ -20,3 +20,5 @@ export { default as Carousel } from "./Carousel";
 export { default as DetailCard } from "./DetailCard";
 export { default as ProductForm } from "./ProductForm";
 export { default as StartLiveVideo } from "./StartLiveVideo";
+export { default as MyProfile } from "./MyProfile";
+export { default as Gallery } from "./Gallery";

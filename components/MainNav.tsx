@@ -18,7 +18,7 @@ const MainNav = () => {
     if (typeof window != "undefined") {
       const runtimeConnector = new RuntimeConnector(Extension);
       const pkh = await runtimeConnector?.createCapability({
-        app: "PolyverseTest",
+        app: "TradeVerse",
         wallet: WALLET.PARTICLE, // optional, if not connected
       });
       console.log(pkh);

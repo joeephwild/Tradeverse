@@ -5,6 +5,7 @@ import DetailCard from "./DetailCard";
 import { FaArrowLeft } from "react-icons/fa";
 import { products } from "@/constant";
 import ProductCard from "./ProductCard";
+import { useRouter } from "next/router";
 
 type Props = {
   image: any;
@@ -23,11 +24,12 @@ interface Type {
 
 const ProductDetails = ({ item }: any) => {
   const images = item?.image;
+  const router = useRouter()
 
   return (
     <div className="overflow-y-scroll scrollbar-hide min-w-screen">
     <div className="flex-1  m-9 ">
-      <div className="bg-white/50 text-white h-9 w-9 rounded-full p-3">
+      <div onClick={() => router.back()} className="bg-white/50 cursor-pointer text-white h-9 w-9 rounded-full p-3">
         <FaArrowLeft size={15} />
       </div>
       <div className="flex flex-col items-start">

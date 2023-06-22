@@ -13,12 +13,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { initialize } = useHuddle01();
-
-  useEffect(() => {
-    initialize("YOUR_PROJECT_ID");
-  }, []);
-
   return (
     <ModalProvider
       options={{

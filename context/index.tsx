@@ -53,6 +53,17 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
     console.log(item);
   };
 
+  useEffect(() => {
+    const getAddress = async () => {
+      if (typeof window != "undefined") {
+        const runtimeConnector = new RuntimeConnector(Extension);
+        const pkh = await runtimeConnector.wallet.getCurrentPkh();
+        console.log(pkh);
+      }
+    };
+    getAddress()
+  }, []);
+
   const handleClearCart = () => {
     dispatch(clearCart());
   };
@@ -73,7 +84,7 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
         }
       );
       console.log(data);
-      return data.data.roomId      ;
+      return data.data.roomId;
     } catch (error) {
       console.log(error);
       return "";

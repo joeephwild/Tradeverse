@@ -17,7 +17,7 @@ interface Props {
 //Styles
 const styles = {
   continueBtn:
-    "flex items-start justify-between text-[14px] space-x-4vw md:space-x-7 text-[#fff] bg-[#00B86B] px-9 py-3.5 rounded-[40px]",
+    "flex items-center justify-between text-[14px] space-x-6 md:space-x-7 text-[#fff] bg-[#00B86B] px-4 py-2.5 rounded-[40px]",
 };
 
 const Button = ({
@@ -36,10 +36,10 @@ const Button = ({
           onClick={handleClick}
           className={`${!isBorder && styles.continueBtn} ${
             isBorder &&
-            "border-green border flex items-start justify-between text-[14px] space-x-4vw md:space-x-7  text-[#fff] px-9 py-3.5 rounded-[40px]"
+            "border-green border flex items-cebter justify-between space-x-6 md:space-x-7  text-[#fff] px-4 py-2.5 rounded-[40px]"
           } min-w-[240px]`}
         >
-          <span>{title}</span>
+          <span className="text-[18px] font-semibold leading-[24px]">{title}</span>
           <AiOutlineArrowRight size={20} />
         </button>
       )}
@@ -48,10 +48,10 @@ const Button = ({
           <button
             className={`${!isBorder && styles.continueBtn} ${
               isBorder &&
-              "border-green border flex items-start justify-between text-[14px] space-x-4vw md:space-x-7  text-[#fff] px-9 py-3.5 rounded-[40px]"
+              "border-green border flex items-center justify-between text-[14px] space-x-6 md:space-x-7  text-[#fff] px-4 py-2.5 rounded-[40px]"
             } min-w-[240px]`}
           >
-            <span>{title}</span>
+            <span className="text-[18px] font-semibold leading-[24px]">{title}</span>
            <Image src={right} alt="right" />
           </button>
         </Link>
