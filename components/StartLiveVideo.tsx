@@ -28,9 +28,7 @@ const StartLiveVideo = () => {
     try {
       const id = await getRoomId();
       setRoomId(id);
-      if (roomId) {
         router.push(`/meet/${roomId}`);
-      }
     } catch (error) {
       console.log(error);
       // Handle the error accordingly
