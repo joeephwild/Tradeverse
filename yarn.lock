@@ -52,7 +52,7 @@
     uuid "^9.0.0"
     webext-bridge "5.0.5"
 
-"@dataverse/runtime-connector@1.0.59":
+"@dataverse/runtime-connector@^1.0.59":
   version "1.0.59"
   resolved "https://registry.yarnpkg.com/@dataverse/runtime-connector/-/runtime-connector-1.0.59.tgz#b1ec6e2309536df077033935915016d874516923"
   integrity sha512-14ajms0q9AZbVIUjFFasxm2NSEQNhBiWCn8W/4v0oARmAKCm9xChK1lWNIqiQS25TClgNwV7fWNWYTUqap6J5g==

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@dataverse/runtime-connector": "1.0.59",
+    "@dataverse/runtime-connector": "^1.0.59",
     "@ensdomains/ensjs": "^3.0.0-alpha.64",
     "@huddle01/react": "^0.0.11",
     "@livepeer/react": "^2.5.4",

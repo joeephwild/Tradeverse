@@ -11,6 +11,7 @@ import { Ethereum, EthereumGoerli } from "@particle-network/common";
 import { evmWallets } from "@particle-network/connect";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ContractProvider } from "@/context/ContractProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -49,10 +50,12 @@ export default function App({ Component, pageProps }: AppProps) {
       ]}
     >
       <Provider store={store}>
-        <TradeVerseProvider>
-          <Component {...pageProps} />
-          <ToastContainer />
-        </TradeVerseProvider>
+        <ContractProvider>
+          <TradeVerseProvider>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </TradeVerseProvider>
+        </ContractProvider>
       </Provider>
     </ModalProvider>
   );

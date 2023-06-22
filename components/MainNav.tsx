@@ -18,8 +18,8 @@ const MainNav = () => {
     if (typeof window != "undefined") {
       const runtimeConnector = new RuntimeConnector(Extension);
       const pkh = await runtimeConnector?.createCapability({
-        app: "TradeVerse",
-        wallet: WALLET.PARTICLE, // optional, if not connected
+        app: "PolyverseTest",
+        wallet: WALLET.METAMASK, // optional, if not connected
       });
       console.log(pkh);
       return pkh;
@@ -30,10 +30,10 @@ const MainNav = () => {
     try {
       if (typeof window != "undefined") {
         const runtimeConnector = new RuntimeConnector(Extension);
-        const wallet = await runtimeConnector?.connectWallet(WALLET.PARTICLE);
-        await runtimeConnector?.switchNetwork(314159);
+        const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
+        await runtimeConnector?.switchNetwork(80001);
         createCapability();
-        console.log(wallet);
+        console.log(wallet.address);
         setAddress(wallet?.address);
       }
     } catch (error) {
@@ -51,7 +51,7 @@ const MainNav = () => {
         <span>TradeVerse</span>
       </div>
       <button
-        onClick={connect}
+        onClick={() => connect()}
         className="border-2 border-green px-5 py-2.5 rounded-full flex space-x-2 items-center"
       >
         <Image
@@ -59,7 +59,9 @@ const MainNav = () => {
           alt="profile"
           className="w-[24px] h-[24px] object-cover"
         />
-        <span className="text-green">{address ? `${address.slice(0, 8)}` : "Connect wallet"}</span>
+        <span className="text-green">
+          {address ? `${address.slice(0, 8)}` : "Connect wallet"}
+        </span>
         <FaChevronDown size={25} className="text-green" />
       </button>
     </div>

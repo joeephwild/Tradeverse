@@ -14,6 +14,7 @@ import { useEventListener } from "@huddle01/react";
 const VideoCall = () => {
   const router = useRouter();
   const { id } = router.query;
+
   const { peerIds } = usePeers();
   const { joinLobby } = useLobby();
   const {
@@ -34,7 +35,8 @@ const VideoCall = () => {
 
   useEffect(() => {
     // its preferable to use env vars to store projectId
-    initialize("vtgktcYqWqcoqvlFqzItnfR_ALdxyhlf");
+    initialize("L-UtmOW84pscUfMWmRGCk2-dwngKPaoK");
+    console.log(id)
   }, []);
 
   const startVideo = () => {

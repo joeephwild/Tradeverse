@@ -36,7 +36,7 @@ const Connect = () => {
       if (typeof window != "undefined") {
         const runtimeConnector = new RuntimeConnector(Extension);
         const wallet = await runtimeConnector?.connectWallet(WALLET.METAMASK);
-        await runtimeConnector?.switchNetwork(314159);
+        await runtimeConnector?.switchNetwork(80001);
         createCapability();
         console.log(wallet);
         setAddress(wallet?.address);

@@ -57,7 +57,9 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
     const getAddress = async () => {
       if (typeof window != "undefined") {
         const runtimeConnector = new RuntimeConnector(Extension);
-        const pkh = await runtimeConnector.wallet.getCurrentPkh();
+        const pkh = await runtimeConnector.wallet.getCurrentPkh(
+           
+        );
         console.log(pkh);
       }
     };
@@ -79,7 +81,7 @@ export const TradeVerseProvider: React.FC<TradeVerseNode> = ({ children }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
+            "x-api-key": "QQ7Ri5fKZssD9DLrvSBlQxyDed6GEnVk",
           },
         }
       );
