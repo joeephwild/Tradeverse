@@ -28,21 +28,23 @@ contract Products {
         address[] customer;
         string description;
         string meetingId;
+        string location;
     }
 
     struct Product {
         string name;
         string category;
-        string imageLink;
+        string[] imageLink;
         string descLink;
         uint price;
         uint index;
         OrderStatus status;
-        uint256 quantity;
         string location;
         uint256 maxQuantity;
         address payable owner;
-        uint256 refundTimeLimit;
+        uint256 shippingFee;
+        bool sellerActive;
+        string meetingId;
     }
 
     struct Order {
@@ -57,21 +59,44 @@ contract Products {
         Escrow escrow; // Instance of the Escrow contract
     }
 
+    struct StoreImage {
+        string profile;
+        string coverImage;
+    }
+
     address owner;
     uint256 public orderIdCounter;
+    mapping(address => StoreImage) addressToImages;
     mapping(uint256 => Live) lives;
     mapping(uint256 => Order) public orders;
     mapping(address => bool) public arbiters;
     mapping(uint256 => Product) products;
     mapping(address => Product[]) addressToProducts;
+    mapping(address => Product) addressToSingleProduct;
     mapping(address => Store) storeList;
     uint256 productsId;
     uint256 noOfLives;
     Product[] allProduct;
     Store[] allStores;
     Live[] allLives;
+    Order[] allOrders;
 
-    event OrderCreated(uint256 orderId, address buyer, address seller, uint256 price);
+    function addProfile(string memory _profile) external {
+        StoreImage storage newProfile = addressToImages[msg.sender];
+        newProfile.profile = _profile;
+    }
+
+    function addCoverImage(string memory _profile) external {
+        StoreImage storage newProfile = addressToImages[msg.sender];
+        newProfile.profile = _profile;
+    }
+
+    event OrderCreated(
+        uint256 orderId,
+        address buyer,
+        address seller,
+        uint256 price
+    );
 
     modifier onlyOwner() {
         require(
@@ -82,12 +107,18 @@ contract Products {
     }
 
     modifier onlyBuyer(uint256 _orderId) {
-        require(msg.sender == orders[_orderId].buyer, "Only the buyer can call this function.");
+        require(
+            msg.sender == orders[_orderId].buyer,
+            "Only the buyer can call this function."
+        );
         _;
     }
 
     modifier onlySeller(uint256 _orderId) {
-        require(msg.sender == orders[_orderId].seller, "Only the seller can call this function.");
+        require(
+            msg.sender == orders[_orderId].seller,
+            "Only the seller can call this function."
+        );
         _;
     }
 
@@ -106,7 +137,8 @@ contract Products {
         string memory _category,
         string memory _name,
         string memory _lastName,
-        string memory _description
+        string memory _description,
+        string memory _location
     ) external {
         Store storage newStore = storeList[msg.sender];
         newStore.storeName = _storeName;
@@ -116,18 +148,20 @@ contract Products {
         newStore.lastName = _lastName;
         newStore.description = _description;
         newStore.isSellerActive = false;
+        newStore.location = _location;
+        allStores.push(newStore);
     }
 
     function addProduct(
         string memory _name,
         string memory _category,
-        string memory _imageLink,
+        string[] memory _imageLink,
         string memory _descLink,
         uint _price,
         string memory _location,
         uint256 _maxQuantity,
         uint256 _refundTimeLimit
-    ) public onlyOwner onlyIfStoreExist returns (uint) {
+    ) public onlyIfStoreExist returns (uint) {
         require(msg.sender != address(0), "Invalid sender address.");
         productsId++;
         Product storage newProduct = products[productsId];
@@ -140,21 +174,28 @@ contract Products {
         newProduct.location = _location;
         newProduct.maxQuantity = _maxQuantity;
         newProduct.price = _price;
-        newProduct.quantity = 0;
         newProduct.status = OrderStatus.Available;
-        newProduct.refundTimeLimit = _refundTimeLimit;
+        newProduct.shippingFee = _refundTimeLimit;
+        newProduct.sellerActive = false;
         allProduct.push(newProduct);
         return productsId;
     }
 
-    function placeOrder(uint256 id, uint256 _price, address payable _arbiter) public payable {
+    function placeOrder(uint256 id, uint256 _price) public payable {
         Order storage newOrder = orders[orderIdCounter];
         require(msg.value >= products[id].price, "Insufficient payment.");
         require(!newOrder.isPaid, "Payment has already been made.");
-        require(products[id].status == OrderStatus.Available, "Product is not available.");
+        require(
+            products[id].status == OrderStatus.Available,
+            "Product is not available."
+        );
         address payable _seller = products[id].owner; // Only allow the owner to sell items for now
         Escrow escrowInstance = new Escrow();
-        escrowInstance.initialize(_seller, _arbiter, _price);
+        escrowInstance.initialize(
+            _seller,
+            0x8D45EA72697C5f395EE1509cB39067Cb977d9Cb6,
+            _price
+        );
         escrowInstance.deposit{value: msg.value}();
         orderIdCounter++;
         newOrder.orderId = orderIdCounter;
@@ -166,16 +207,23 @@ contract Products {
         newOrder.isFulfilled = false;
         newOrder.isRefunded = false;
         newOrder.escrow = escrowInstance;
+        allOrders.push(newOrder);
         storeList[products[id].owner].customer.push(msg.sender);
         emit OrderCreated(orderIdCounter, msg.sender, _seller, _price);
     }
 
     event OrderDelivered(uint256 orderId);
 
-    function confirmDelivery(uint256 _orderId, bool _success) external onlyBuyer(_orderId) {
+    function confirmDelivery(
+        uint256 _orderId,
+        bool _success
+    ) external onlyBuyer(_orderId) {
         Order storage order = orders[_orderId];
         require(order.isPaid, "Payment has not been made.");
-        require(order.status == OrderStatus.Shipped, "Order has not been shipped.");
+        require(
+            order.status == OrderStatus.Shipped,
+            "Order has not been shipped."
+        );
 
         // Call the confirmDelivery function in the Escrow contract
         order.escrow.confirmDelivery(_success);
@@ -199,12 +247,6 @@ contract Products {
         require(order.isPaid, "Payment has not been made.");
         require(!order.isFulfilled, "Order has already been fulfilled.");
 
-        // Check if the refund request is made within the time limit
-        require(
-            block.timestamp >= products[_orderId].refundTimeLimit,
-            "Refund time limit has not been reached."
-        );
-
         // Call the refundBuyer function in the Escrow contract
         order.escrow.refundBuyer();
 
@@ -214,42 +256,34 @@ contract Products {
         emit OrderRefunded(_orderId);
     }
 
-    function getUserStoreDetails(
-        address _owner
-    )
-        external
-        view
-        returns (
-            address,
-            string memory,
-            bool,
-            string memory,
-            string memory,
-            string memory,
-            string memory
-        )
-    {
-        return (
-            storeList[_owner].owner,
-            storeList[_owner].category,
-            storeList[_owner].isSellerActive,
-            storeList[_owner].description,
-            storeList[_owner].lastName,
-            storeList[_owner].name,
-            storeList[_owner].storeName
-        );
+    function getStoreDetails() external view returns (Store[] memory) {
+        return allStores;
     }
 
-    function getProductByAddress(address _owner) external view returns(Product[] memory){
+    function getProductDetails() external view returns (Product[] memory) {
+        return allProduct;
+    }
+
+    function getAllOrder() external view returns (Order[] memory) {
+        return allOrders;
+    }
+
+    function getProductByAddress(
+        address _owner
+    ) external view returns (Product[] memory) {
         return addressToProducts[_owner];
     }
 
-    function startStream(string memory _callId) external returns (bool) {
+    function startStream(
+        string memory _callId
+    ) external onlyIfStoreExist returns (bool) {
         Live storage goLive = lives[noOfLives];
         goLive.callId = _callId;
         goLive.storeName = storeList[msg.sender].storeName;
         storeList[msg.sender].isSellerActive = true;
-        storeList[msg.sender].meetingId = _callId;
+        storeList[msg.sender].meetingId = _callId; 
+        addressToSingleProduct[msg.sender].sellerActive = true;
+        addressToSingleProduct[msg.sender].meetingId = _callId;
         return storeList[msg.sender].isSellerActive;
     }
 
@@ -260,6 +294,11 @@ contract Products {
     function cancelLive(uint256 _id) external returns (bool) {
         delete lives[_id];
         storeList[msg.sender].isSellerActive = false;
+        addressToSingleProduct[msg.sender].sellerActive = false;
         return storeList[msg.sender].isSellerActive;
+    }
+
+    function isSellerActive(address _owner) external view returns (bool) {
+        return storeList[_owner].isSellerActive;
     }
 }

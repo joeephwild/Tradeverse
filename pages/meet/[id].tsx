@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   useLobby,
   useAudio,
@@ -14,10 +14,12 @@ import { HuddleIframe, useEventListner } from "@huddle01/iframe";
 // JavaScript | TypeScript
 import { iframeApi } from "@huddle01/iframe";
 import { Navbar } from "@/components";
+import { useContractContext } from "@/context/ContractProvider";
 
 const VideoCall = () => {
   const router = useRouter();
   const { id } = router.query;
+  const [roomId, setRoomId] = useState("");
 
   // const { peerIds } = usePeers();
   // const { joinLobby } = useLobby();
@@ -34,6 +36,14 @@ const VideoCall = () => {
   //   stream: videoStream,
   // } = useVideo();
 
+  const updateString = (newValue: string | string[] | undefined) => {
+    if (typeof newValue === "string") {
+      setRoomId(newValue);
+    }
+  };
+
+ 
+
   const { initialize, isInitialized } = useHuddle01();
   // const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -41,6 +51,7 @@ const VideoCall = () => {
     // its preferable to use env vars to store projectId
     initialize("L-UtmOW84pscUfMWmRGCk2-dwngKPaoK");
     console.log(id);
+    updateString(id);
   }, []);
 
   //   const startVideo = () => {
@@ -51,11 +62,20 @@ const VideoCall = () => {
 
   useEventListner("lobby:initialized", () => {
     iframeApi.initialize({
-      redirectUrlOnLeave: "https://huddle01.com",
+      redirectUrlOnLeave:
+        "https://tradeverse-particle.vercel.app/dashboard/feed",
       wallets: ["metamask"],
-      background: "https://images.pexels.com/photos/1420003/pexels-photo-1420003.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      gradientAndMesh: false
+      background:
+        "https://gateway.pinata.cloud/ipfs/QmWCec9nWPf7KnaBGeaWtVoPT8dBEXSWXjLhhb47RTfPUD?_gl=1*1rqjpoc*rs_ga*NzczNDkyOTU3LjE2ODc0NzY0MjE.*rs_ga_5RMPXG14TE*MTY4NzQ3NjQyMC4xLjEuMTY4NzQ3NjcyOC43LjAuMA..",
+      gradientAndMesh: false,
     });
+  });
+
+  const { startStream } = useContractContext();
+
+  useEventListner("room:joined", (data) => {
+    startStream(roomId);
+    console.log(roomId)
   });
 
   //   useEventListener("lobby:joined", () => {
@@ -73,8 +93,7 @@ const VideoCall = () => {
     <div className="">
       <HuddleIframe
         roomUrl={`https://iframe.huddle01.com/${id}`}
-        className="w-full aspect-video"
-
+        className="w-full aspect-video h-[960px] mt-[12px]"
       />
       <div className="fixed top-0 w-full">
         <Navbar />

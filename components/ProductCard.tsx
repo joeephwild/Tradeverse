@@ -1,59 +1,120 @@
-import { product } from "@/assets";
+import { celo, product } from "@/assets";
 import Image from "next/image";
-import React from "react";
-import { FaChevronRight } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaArrowRight, FaChevronRight } from "react-icons/fa";
 import { BsDot } from "react-icons/bs";
 import Link from "next/link";
 import { useTradeContext } from "@/context";
+import axios from "axios";
+import { convertToEthereum } from "@/constant/convertionUtils";
 
-type Props = {
-  image: any[];
-  title: string;
-  price: string;
+interface Product {
+  name: string;
+  desc: string;
+  image: never[];
+  price: number;
+  category: string;
+  pid: number;
+  quantity: number;
   location: string;
-  isSellerActive: boolean;
-};
-
-interface Type {
-  item: Props;
+  max: number;
+  owner: string;
+  refund: number;
+  active: boolean;
+  id: string
 }
+// interface Type {
+//   item: Props;
+// }
 
-const ProductCard = ({ item }: Type) => {
+const ProductCard = ({
+  image,
+  location,
+  price,
+  category,
+  desc,
+  max,
+  name,
+  owner,
+  pid,
+  quantity,
+  refund,
+  active,
+  id
+}: Product) => {
   const { handleAddToCart } = useTradeContext();
-  const main = item.image[0]
-  return (
-    <div className="border-2 cursor-pointer border-Gray/900 mt-9 px-3 py-2.5 max-w-[308px]">
-      <div className="relative">
-        
-        <Image
-          src={main}
-          alt="product"
-          className="max-w-[278px] max-h-[278px] object-cover rounded-[4px]"
-        />
-        {item.isSellerActive && (
-          <button className="absolute top-0 animate-pulse transition-all duration-500 bg-[#F90000] right-0 text-center flex items-center space-x-6 px-5 py-2.5">
-            <span>Seller is Live</span>
-            <FaChevronRight />
-          </button>
-        )}
-      </div>
+  //console.log(image[0])
+  function truncateText(text: string, maxLength: number): string {
+    if (text.length <= maxLength) {
+      return text;
+    }
 
-      <div className="flex border-b-2 border-Foundation pb-3 flex-col mt-4 items-start w-full text-start">
-        <span>{item.title}</span>
-        <h3>{item.price}</h3>
-        <div className="flex items-center text-center space-x-1">
-          <BsDot className="text-green text-xl" />
-          <span className="text-[14px] font-medium">{item.location}</span>
+    return text.slice(0, maxLength) + "...";
+  }
+
+  const [ethereumPrice, setEthereumPrice] = useState<string>("");
+
+  useEffect(() => {
+    async function getEthereumPrice() {
+      try {
+        const ethereumAmount = await convertToEthereum(
+          price,
+          "ethereum",
+          "usd"
+        );
+        setEthereumPrice(ethereumAmount);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    getEthereumPrice();
+  }, [price]);
+  return (
+    <div className="border-2 relative cursor-pointer border-Gray/900 mt-9 px-3 py-2.5 w-[310px] flex-shrink-0 h-[491px]">
+      <div className="">
+        {image?.length > 0 && (
+          <Image
+            src={`https://gateway.pinata.cloud/ipfs/${image[0]}`}
+            alt="product"
+            width={300}
+            height={500}
+            className="max-w-[278px] max-h-[278px] object-cover p-4 bg-no-repeat rounded-[4px]"
+          />
+        )}
+        <div className="absolute top-0 right-0  ">
+          {active === true && (
+            <Link href={`/meet/${id}`} className="bg-[#F90000] p-[14px] flex items-center justify-end space-x-2">
+              <span>Seller is Live</span>
+              <FaArrowRight size={16} />
+            </Link>
+          )}
         </div>
       </div>
-      <div className="flex items-center justify-center mt-6 space-x-6 w-full">
-        <Link href={`/product/${item.title}`}>
+      <div className="flex flex-col items-start px-[16px]">
+        <span className="truncate text-[18px] pt-[16px]">
+          {truncateText(name, 25)}
+        </span>
+        <h3 className="text-[24px] flex items-center font-bold pt-[8px]">
+          ${price} -{" "}
+          <span className="flex ietms-center">
+            {ethereumPrice}
+            <Image src={celo} alt="celo" className="w-6 h-6 object-contain" />
+          </span>
+        </h3>
+        <div className="flex items-center text-center">
+          <BsDot className="text-green text-xl" />
+          <span className="text-[14px] font-medium pb-[8px]">{location}</span>
+        </div>
+      </div>
+      <div className="flex items-center border-t-2 py-[16px] border-[#E6E6E6] justify-center space-x-6 w-full">
+        <Link href={`/product/${name}`}>
           <button className="border-2 border-green text-[18px] font-bold px-8 py-2.5 rounded-[48px]">
             Buy
           </button>
         </Link>
         <button
-          onClick={() => handleAddToCart(item)}
+          onClick={() => handleAddToCart(name)}
           className="bg-green text-[18px] font-bold px-4 py-2.5 rounded-[48px]"
         >
           Add to Cart
