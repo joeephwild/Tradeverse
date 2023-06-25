@@ -102,31 +102,6 @@ export const ContractProvider = ({ children }: ContractChildren) => {
     }
   };
 
-  const getStoreDetails = async () => {
-    try {
-      if (typeof window !== "undefined") {
-        const runtimeConnector: RuntimeConnector = new RuntimeConnector(
-          Extension
-        );
-        await runtimeConnector.connectWallet(WALLET.METAMASK);
-        const tx = await runtimeConnector.contractCall({
-          contractAddress: ProductContract,
-          abi: productAbi,
-          method: "getStoreDetails",
-          params: [],
-          mode: Mode.Read,
-        });
-        setIsLoading(true);
-        // console.log(tx);
-        setStoreDetails(tx);
-        setIsLoading(false);
-      } // Return the fetched store details
-    } catch (error) {
-      console.error(error);
-      return []; // Return an empty array in case of error
-    }
-  };
-
   const productByAddress = async (id: string) => {
     try {
       const result = await connectWithContract();
@@ -162,77 +137,6 @@ export const ContractProvider = ({ children }: ContractChildren) => {
       return []; // Return an empty array in case of error
     }
   };
-
-  const getLiveEVnt = async () => {
-    try {
-      const result = await connectWithContract();
-      const tx = await result.getLiveDetail();
-      console.log(tx);
-      setLiveEvent(tx);
-      return tx;
-    } catch (error) {
-      console.error(error);
-      return []; // Return an empty array in case of error
-    }
-  };
-
-  const getProductDetails = async () => {
-    try {
-      const result = await connectWithContract();
-      const tx = await result.getProductDetails();
-      console.log(tx);
-      const parsedProduct = await tx.map((item: any) => ({
-        name: item.name,
-        desc: item.descLink,
-        image: item.imageLink,
-        price: Number(item.price),
-        category: item.category,
-        pid: Number(item.index),
-        quantity: Number(item.quantity),
-        location: item.location,
-        max: Number(item.maxQuantity),
-        owner: item.owner,
-        refund: item.refundTimeLimit,
-        active: item.sellerActive,
-        id: item.meetingId,
-      }));
-      console.log(parsedProduct);
-      setAllProduct(parsedProduct);
-      return tx; // Return the fetched store details
-    } catch (error) {
-      console.error(error);
-      return []; // Return an empty array in case of error
-    }
-  };
-
-  const filterForUserProduct = async () => {
-    const result = await getProductDetails();
-    const userProduct = result.filter((item: any) => item.owner === account);
-    const parsedProduct = await userProduct.map((item: any) => ({
-      name: item.name,
-      desc: item.descLink,
-      image: item.imageLink,
-      price: ethers.utils.formatEther(item.price),
-      category: item.category,
-      pid: Number(item.index),
-      quantity: Number(item.quantity),
-      location: item.location,
-      max: Number(item.maxQuantity),
-      owner: item.owner,
-      refund: Number(item.refundTimeLimit),
-    }));
-    console.log(parsedProduct);
-    setUserProduct(parsedProduct);
-    console.log(userProduct);
-  };
-
-
-  useEffect(() => {
-    getStoreDetails();
-    getProductDetails();
-    filterForUserProduct();
-    getLiveEVnt();
-  }, [account]);
 
   async function placeOrder(id: number, _price: string) {
     try {
@@ -281,21 +185,35 @@ export const ContractProvider = ({ children }: ContractChildren) => {
     _refundTimeLimit: number
   ) => {
     try {
-      const result = await connectWithContract();
-      setIsLoading(true);
-      const tx = await result.addProduct(
-        _name,
-        _category,
-        _imageLink,
-        _descLink,
-        _price,
-        _location,
-        _maxQuantity,
-        _refundTimeLimit
-      );
-      console.log(tx);
-      setIsLoading(false);
-      toast.success("Product listed sucessfully");
+      if(typeof window != "undefined"){
+        const runtimeConnector: RuntimeConnector = new RuntimeConnector(
+          Extension
+        );
+        await runtimeConnector.connectWallet(WALLET.METAMASK);
+        const tx = await runtimeConnector.contractCall({
+          contractAddress: ProductContract,
+          abi: productAbi,
+          method: "addProduct",
+          params: [
+            _name,
+            _category,
+            _imageLink,
+            _descLink,
+            _price,
+            _location,
+            _maxQuantity,
+            _refundTimeLimit
+          ],
+          mode: Mode.Write,
+        });
+        setIsLoading(true);
+
+        console.log(tx);
+        await tx.wait();
+        setIsLoading(false);
+
+        toast.success("Product successfully Created");
+      }
     } catch (error) {
       console.log(error);
     }
